@@ -1,5 +1,5 @@
 let vector2 = { x: 0, y: 0 };
-const speed = 5;
+const speed = 15;
 
 const player = document.getElementById("player");
 
@@ -11,14 +11,16 @@ document.addEventListener(
       player.classList.add("run");
       player.classList.remove("mirrored");
       vector2.x -= speed;
+      moveLeft();
     } else if (e.key === "d") {
       player.classList.remove("idle");
       player.classList.add("run");
       player.classList.add("mirrored");
       vector2.x += speed;
+      moveRight();
     }
 
-    updatePosition();
+    // updatePosition();
   },
   false
 );
@@ -32,4 +34,12 @@ document.addEventListener("keyup", function (e) {
 
 function updatePosition() {
   player.style.transform = `translateX(${Math.round(vector2.x)}px);`;
+}
+
+function moveLeft() {
+  player.style.left = parseInt(vector2.x) - speed + "px";
+}
+
+function moveRight() {
+  player.style.left = parseInt(vector2.x) + speed + "px";
 }
