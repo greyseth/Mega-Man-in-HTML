@@ -1,0 +1,45 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1fr;
+  height: 650px;
+}
+
+.mega-man {
+  width: 80px;
+  height: 80px;
+  image-rendering: pixelated;
+}
+
+.mirrored {
+  transform: scaleX(-1);
+}
+
+.idle {
+  content: url("./sprites/MM/idle.png");
+}
+
+.run {
+  animation: run-anim 0.3s alternate infinite;
+}
+
+@keyframes run-anim {
+  0% {
+    content: url("./sprites/MM/run1.png");
+  }
+
+  50% {
+    content: url("./sprites/MM/run2.png");
+  }
+
+  100% {
+    content: url("./sprites/MM/run3.png");
+  }
+}
