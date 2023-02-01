@@ -12,6 +12,7 @@ div {
   height: 650px;
 }
 
+/* PLAYER CLASSES */
 .mega-man {
   width: 80px;
   height: 80px;
@@ -43,4 +44,12 @@ div {
   100% {
     content: url("./sprites/MM/run3.png");
   }
+}
+
+/* OBJECT CLASSES */
+.bullet {
+  width: 10px;
+  height: 10px;
+  image-rendering: pixelated;
+  position: absolute;
 }

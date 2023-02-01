@@ -1,5 +1,4 @@
 let vector2 = { x: 0, y: 0 };
-const speed = 15;
 
 const player = document.getElementById("player");
 let gameRunning = true;
@@ -21,6 +20,20 @@ document.addEventListener(
       player.classList.add("mirrored");
       pressD = true;
     }
+
+    if (e.key === "j") {
+      if (pressA) {
+        spawnBullet(-1);
+      } else if (pressD) {
+        spawnBullet(1);
+      } else {
+        spawnBullet(1);
+      }
+    }
+
+    if (e.key === "Escape") {
+      gameRunning = !gameRunning;
+    }
   },
   false
 );
@@ -41,10 +54,21 @@ function updatePosition() {
   player.style.left = `${vector2.x}px`;
 }
 
-function playerGravity() {}
+function updateBullets() {
+  spawnedBullets.forEach(function (b) {
+    const bullet = document.getElementById(`bl_${b.id}`);
+    let converter = bullet.style.left.match(/\d/g);
+    let xPos = Number(converter.join(""));
+
+    xPos += b.direction * bulletSpeed;
+    bullet.style.left = `${xPos}px`;
+  });
+}
 
 window.onload = function () {
   function update() {
+    if (!gameRunning) return;
+
     if (pressA) {
       vector2.x -= speed;
     }
@@ -54,6 +78,7 @@ window.onload = function () {
     }
 
     updatePosition();
+    updateBullets();
   }
 
   setInterval(update, 100);
