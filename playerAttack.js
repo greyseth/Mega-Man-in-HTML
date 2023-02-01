@@ -1,5 +1,6 @@
 let lastBullet = 0;
 let spawnedBullets = [];
+const maxBulletPos = 5000;
 
 function spawnBullet(direction) {
   document

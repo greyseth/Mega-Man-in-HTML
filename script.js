@@ -1,10 +1,14 @@
 let vector2 = { x: 0, y: 0 };
+let velocity;
+let gravity = -9.18;
+let jumpHeight = 500;
 
 const player = document.getElementById("player");
 let gameRunning = true;
 
 let pressA = false;
 let pressD = false;
+let pressK = false;
 
 document.addEventListener(
   "keydown",
@@ -22,6 +26,8 @@ document.addEventListener(
     }
 
     if (e.key === "j") {
+      player.classList.add("shoot");
+
       if (pressA) {
         spawnBullet(-1);
       } else if (pressD) {
@@ -29,6 +35,10 @@ document.addEventListener(
       } else {
         spawnBullet(1);
       }
+    }
+
+    if (e.key === "k") {
+      pressK = true;
     }
 
     if (e.key === "Escape") {
@@ -43,15 +53,22 @@ document.addEventListener("keyup", function (e) {
     player.classList.add("idle");
     player.classList.remove("run");
     pressA = false;
-  } else if (e.key === "d") {
+  }
+  if (e.key === "d") {
     player.classList.add("idle");
     player.classList.remove("run");
     pressD = false;
   }
+  if (e.key === "k") {
+    pressK = false;
+  }
 });
 
 function updatePosition() {
+  vector2.y = velocity;
+
   player.style.left = `${vector2.x}px`;
+  player.style.bottom = `${vector2.y}px`;
 }
 
 function updateBullets() {
@@ -62,9 +79,18 @@ function updateBullets() {
 
     xPos += b.direction * bulletSpeed;
     bullet.style.left = `${xPos}px`;
+
+    //---Bullet removal when it gets too far away. I'll deal with it later---
+    //-----------------------------------------------------------------------
+    // console.log(xPos);
+    // if (xPos >= maxBulletPos || xPos * -1 <= maxBulletPos * 1) {
+    //   // spawnedBullets.splice(spawnedBullets.findIndex((f) => f.id === b.id));
+    //   // bullet.remove();
+    // }
   });
 }
 
+//Update function
 window.onload = function () {
   function update() {
     if (!gameRunning) return;
@@ -76,6 +102,13 @@ window.onload = function () {
     if (pressD) {
       vector2.x += speed;
     }
+
+    if (pressK) {
+      velocity = Math.sqrt(jumpHeight * -2 * gravity);
+    }
+
+    velocity += gravity;
+    if (velocity < 0) velocity = 0;
 
     updatePosition();
     updateBullets();

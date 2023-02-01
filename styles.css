@@ -32,6 +32,10 @@ div {
   animation: run-anim 0.3s alternate infinite;
 }
 
+.shoot {
+  content: url("./sprites/MM/idle_shoot.png");
+}
+
 @keyframes run-anim {
   0% {
     content: url("./sprites/MM/run1.png");
@@ -48,8 +52,8 @@ div {
 
 /* OBJECT CLASSES */
 .bullet {
-  width: 10px;
-  height: 10px;
+  width: 25px;
+  height: 25px;
   image-rendering: pixelated;
   position: absolute;
 }
